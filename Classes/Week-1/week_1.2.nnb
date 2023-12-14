@@ -1,0 +1,492 @@
+{
+    "cells": [
+        {
+            "language": "markdown",
+            "source": [
+                "## JAVASCRIPT TUTORIAL"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### **INTERVIEW SPECIAL** - IMPORTANT THEORY"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "**Interpreted language** - a program that converts lines into byte code and execute them directly. Instructions are processed line by line, without previously compiling the whole program into machine-language instructions i.e. Line by Line execution. Hence leading to a slower execution time since it is `switching` between 2 tasks [Converting to ByteCode and Executing] at each line. [There must be some overhead attatched with switching between 2 tasks] [Not sure how the overhead comes exactly - Itna low level nahi pata]\r\n\r\nThis leads to `partial execution` of the program, even if there is an error in the program which sometimes can be caught by compiled languages. This is because the program is not compiled as a whole, but line by line. Hence, the error is detected only when the interpreter reaches that line.\r\n\r\nAnother reason for it being slow is that there is no compilation involved. Hence, the interpreter has to convert the code to bytecode and then execute it. Bytecode execution is slower than **MACHINE CODE** execution.\r\n\r\n**Compiler**: A compiler is a program that translates a program written in a high-level language to a low-level language. It scans the entire program and translates it completely before the program is executed. It is a program that translates the entire code into machine code in one go. Hence, it is faster than an interpreter.\r\n\r\n`Fast due to 2 reasons:`\r\n\r\n1. It translates the entire program before execution. [No Switching between 2 tasks]\r\n2. It translates the code into machine code and machine code execution is faster than bytecode execution."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "**TOPICS TO READ**: [Or ask anmol]\r\n\r\n1. **JIT Compiler** - Just in time compiler. It is a combination of both compiler and interpreter. It converts the code into bytecode, but instead of executing it, it converts the bytecode into machine code and then executes it. Hence, it is faster than an interpreter, but slower than a compiler. [It is a combination of both compiler and interpreter]\r\n\r\n2. **HOW TO MAKE AN INTERPRETER HYPOTHETICALLY FASTER** [Asked in Juspay System Design Interview]"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "**EXAMPLE OF PARTIAL EXECUTION**"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "console.log('Hello, World! - IT IS PRINTED HENCE PARTIAL EXECUTION IS DONE');\r\nconsole.log(a); // ERROR HERE"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "Hello, World! - IT IS PRINTED HENCE PARTIAL EXECUTION IS DONE",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.error",
+                            "value": {
+                                "name": "ReferenceError",
+                                "message": "a is not defined",
+                                "stack": "    at <Cell 5> [2, 13]\n    at <Cell 5> [5, 46]\n    at Script.runInContext (node:vm:141:12)\n    at Script.runInNewContext (node:vm:146:17)\n    at Object.runInNewContext (node:vm:306:38)\n    at C (c:\\Users\\anmol\\.vscode\\extensions\\donjayamanne.typescript-notebook-2.0.6\\out\\extension\\server\\index.js:2:113345)\n    at t.execCode (c:\\Users\\anmol\\.vscode\\extensions\\donjayamanne.typescript-notebook-2.0.6\\out\\extension\\server\\index.js:2:114312)\n    at k.<anonymous> (c:\\Users\\anmol\\.vscode\\extensions\\donjayamanne.typescript-notebook-2.0.6\\out\\extension\\server\\index.js:2:142156)\n    at k.emit (node:events:513:28)\n    at k.emit (node:domain:489:12)"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### **WHY IS JS SPECIAL**:\r\n\r\nBroswers can understand only 3 things:\r\n\r\n1. HTML\r\n2. CSS\r\n3. JS -- ONLY PROGRAMMING LANGUAGE THAT 99.9% BROWSERS CAN UNDERSTAND"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "JS is a `Dynamically/Weakly Typed Language` - Type of a variable is determined at runtime. [Not at compile time]\r\n\r\nThis is the reason why JS is so flexible. We can assign any type of value to a variable. [No need to specify the type of variable]\r\n\r\nAn opposite of this is a `Statically/Strictly Typed Language`. Type of a variable is determined at compile time. [Not at runtime] \r\n\r\nThis means that we have to specify the type of variable. We cannot assign any type of value to a variable. [We have to specify the type of variable and only that type of value can be assigned to it]\r\n\r\nThis nature of JS can lead to some runtime errors which can be caught by a compiler in a statically typed language. This is the reason `TypeScript` was introduced. It is a language that is a superset of JS. It is a statically typed language. It is compiled to JS. Hence, it is a compiled language."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### **JS - SINGLE THREADED**"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "**Single Threaded Language** - Only one thing can happen at a time. [Only one thing can be executed at a time] Meaning it uses only a single core of the CPU.\r\n\r\n-- Need to use Cluster Module to use multiple cores of the CPU using JS.\r\n\r\n**Multi Threaded Language** - Multiple things can happen at a time. [Multiple things can be executed at a time] Meaning it can use multiple cores of the CPU if configured to do so.\r\n\r\nExamples of Multithreaded Languages: Java, C++, Python, etc."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### **CODING SHURU**"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "**let vs var vs const:** [Scope of variables] [Read about it]\r\n\r\nIn real world, we use **let** and **const** generally. **var** is not used much."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "let a = 10;\r\nlet b = a; // by value\r\n\r\nb = 20;\r\nconsole.log(a);"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "10",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "**ARRAYS**:"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "let a = [1, 2, 3, 4, 5];\r\nlet b = a; // BY REFERENCE [Like a pointer] [SHALLOW COPY]\r\n\r\na[0] = 99;\r\nconsole.log(b[0]); // 99"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "99",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "let a = [1, 2, 3, 4, 5];\r\nlet b = [...a]; // BY VALUE [DEEP COPY]\r\n\r\na[0] = 99;\r\nconsole.log(b[0]); // 1"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "1",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "**OBJECTS**:"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "let ob1 = {\r\n    a: 10,\r\n    b: 20,\r\n    c: 30\r\n};\r\n\r\nlet ob2 = ob1; // BY REFERENCE [Like a pointer] [SHALLOW COPY]\r\nlet ob3 = {\r\n    ...ob1\r\n}; // BY VALUE [DEEP COPY]\r\n\r\nob1.a = 100;\r\n\r\nconsole.log(\"First Object\"); // a = 100\r\nconsole.log(ob1);\r\nconsole.log(\"Second Object\"); // a = 100\r\nconsole.log(ob2);\r\nconsole.log(\"Third Object\"); // a = 10\r\nconsole.log(ob3);"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "First Object",
+                                "{ a: 100, b: 20, c: 30 }",
+                                "Second Object",
+                                "{ a: 100, b: 20, c: 30 }",
+                                "Third Object",
+                                "{ a: 10, b: 20, c: 30 }",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "##### **FUNCTIONS**: "
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "function fun(a) {\r\n    console.log(a);\r\n    a = 99;\r\n}\r\n\r\nlet b = 10;\r\nfun(b); // pass by value\r\nconsole.log(b); // 10"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "10",
+                                "10",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "function fn2(ob) { // OBJECT OR ARRAY WILL BEHAVE LIKE PASS BY REFERENCE\r\n    console.log(ob);\r\n    ob.a = 99;\r\n}\r\n\r\nlet ob = {\r\n    a: 10,\r\n    b: 20\r\n};\r\n\r\nfn2(ob); // pass by reference\r\nconsole.log(ob); // a = 99"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "{ a: 10, b: 20 }",
+                                "{ a: 99, b: 20 }",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "// CAN ALSO CREATE ANONYMOUS FUNCTION\r\nlet fn = function () {\r\n    console.log(\"I am a function\");\r\n}\r\n\r\nfn();\r\n\r\n// BELOW IS ANONYMOUS FUNCTION [Can use it in callbacks, assign it to variables, etc.]\r\n// () => {\r\n//     console.log(\"I am a function\");\r\n// }"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "I am a function",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Primitive Data Types will be passed by value. [Copied]\r\nBut Complex Data Types will be passed by reference. [Not copied]\r\n\r\nThis functioning is just like **Python.**"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "**CALLBACKS**:\r\n\r\nA callback is a function passed as an argument to another function. This technique allows a function to call another function. A callback function can run after another function has finished."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "function fn3(a, b, cb) {\r\n    return cb(a, b);\r\n}\r\n\r\n// CALLBACK FUNCTIONS\r\nfunction add(a, b) {\r\n    return a + b;\r\n}\r\nfunction sub(a, b) {\r\n    return a - b;\r\n}\r\n\r\nconsole.log(fn3(10, 20, add));\r\nconsole.log(fn3(10, 20, sub));"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "30",
+                                "-10",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "#### **INBUILT FUNCTIONS:**"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "**setTimeout**:\r\n\r\nSetTimeout is a function that takes 2 arguments. First is a function and second is a time in milliseconds. It executes the function after the specified time."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "let callBackFunction = function () {\r\n    console.log(\"Hello\");\r\n}\r\nconsole.log(\"Before\");\r\n\r\nlet returnValue = setTimeout(callBackFunction, 1000); // 1 sec"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "Before",
+                                "",
+                                "Hello",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "It is an asynchronous function. It does not block the execution of the program. It is executed in the background.\r\n\r\nIt returns a Timeout object which we can see below."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "console.log(returnValue);"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "Timeout {",
+                                "  _idleTimeout: 1000,",
+                                "  _idlePrev: null,",
+                                "  _idleNext: null,",
+                                "  _idleStart: 2763333,",
+                                "  _onTimeout: [Function: callBackFunction],",
+                                "  _timerArgs: undefined,",
+                                "  _repeat: null,",
+                                "  _destroyed: true,",
+                                "  [Symbol(refed)]: true,",
+                                "  [Symbol(kHasPrimitive)]: false,",
+                                "  [Symbol(asyncId)]: 1276,",
+                                "  [Symbol(triggerId)]: 14",
+                                "}",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "**setInterval**:\r\n\r\nSetInterval is a function that takes 2 arguments. First is a function and second is a time in milliseconds. It executes the function after the specified time and then keeps on executing it after the specified time."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "function clock() {\r\n    // Print Current Seconds\r\n    let d = new Date();\r\n    let time = d.toLocaleTimeString();\r\n    console.log(time);\r\n}\r\n\r\nlet intervalId = setInterval(clock, 1000); // 1 sec"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                "1:49:52 am",
+                                "1:49:53 am",
+                                "1:49:54 am",
+                                "1:49:55 am",
+                                "1:49:56 am",
+                                "1:49:57 am",
+                                "1:49:58 am",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "intervalId; // To stop the interval"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "Timeout {",
+                                "  _idleTimeout: \u001b[33m-1\u001b[39m,",
+                                "  _idlePrev: \u001b[1mnull\u001b[22m,",
+                                "  _idleNext: \u001b[1mnull\u001b[22m,",
+                                "  _idleStart: \u001b[33m121582\u001b[39m,",
+                                "  _onTimeout: \u001b[1mnull\u001b[22m,",
+                                "  _timerArgs: \u001b[90mundefined\u001b[39m,",
+                                "  _repeat: \u001b[33m1000\u001b[39m,",
+                                "  _destroyed: \u001b[33mtrue\u001b[39m,",
+                                "  [\u001b[32mSymbol(refed)\u001b[39m]: \u001b[33mtrue\u001b[39m,",
+                                "  [\u001b[32mSymbol(kHasPrimitive)\u001b[39m]: \u001b[33mfalse\u001b[39m,",
+                                "  [\u001b[32mSymbol(asyncId)\u001b[39m]: \u001b[33m185\u001b[39m,",
+                                "  [\u001b[32mSymbol(triggerId)\u001b[39m]: \u001b[33m14\u001b[39m",
+                                "}"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "To stop the execution of setInterval, we can use clearInterval function. It takes the Timeout object returned by setInterval as an argument."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "clearInterval(intervalId);"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
