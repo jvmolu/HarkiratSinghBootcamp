@@ -924,6 +924,180 @@
                     ]
                 }
             ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "**Object Class**"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "console.log(Object.keys(sampleJsonObj));"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "[ 'name', 'age', 'isMarried', 'hobbies', 'knownAddreses' ]",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "console.log(Object.values(sampleJsonObj));"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "[",
+                                "  'John Doe',",
+                                "  30,",
+                                "  true,",
+                                "  [ 'reading', 'coding', 'gaming' ],",
+                                "  [",
+                                "    { street: '123 Main St', city: 'New York', state: 'NY' },",
+                                "    { street: '456 Main St', city: 'New York', state: 'NY' }",
+                                "  ]",
+                                "]",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "console.log(Object.entries(sampleJsonObj));"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "[",
+                                "  [ 'name', 'John Doe' ],",
+                                "  [ 'age', 30 ],",
+                                "  [ 'isMarried', true ],",
+                                "  [ 'hobbies', [ 'reading', 'coding', 'gaming' ] ],",
+                                "  [ 'knownAddreses', [ [Object], [Object] ] ]",
+                                "]",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "**Object.assign** is used to copy the properties of one object to another object."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "let sampleOb3 = {\r\n    a: 1,\r\n    b: \"anmol\"\r\n}\r\n\r\nsampleOb3"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "{",
+                                "  a: \u001b[33m1\u001b[39m,",
+                                "  b: \u001b[32m'anmol'\u001b[39m",
+                                "}"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "let ob4 = Object.assign(sampleOb3, {\r\n    c: 3,\r\n    d: \"hello\"\r\n});"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "ob4"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "{",
+                                "  a: \u001b[33m1\u001b[39m,",
+                                "  b: \u001b[32m'anmol'\u001b[39m,",
+                                "  c: \u001b[33m3\u001b[39m,",
+                                "  d: \u001b[32m'hello'\u001b[39m",
+                                "}"
+                            ]
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }
