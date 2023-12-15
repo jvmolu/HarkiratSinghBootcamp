@@ -1,0 +1,929 @@
+{
+    "cells": [
+        {
+            "language": "markdown",
+            "source": [
+                "## JAVASCRIPT TUTORIAL"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Lots of Boilerplate, Basic Things were taught like Strings, String Functions, Arrays, Array Functions, Numbers, Number Functions, etc. which I did not write as it can be looked up easily.\r\n\r\nNothing worth writing was taught till this point."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "#### **Classes in JS**"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "**CLASSES**: Classes are a template for creating objects. They encapsulate data with code to work on that data."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Below Instances of class are also complex data types and behave like objects.\r\n\r\nob1 = ob2 -> Does not copy the object, but creates a reference, or pointer to the object. [Shallow Copy]"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "class Animal {\r\n    constructor(name, legCount, speaks) {\r\n        this.name = name;\r\n        this.legCount = legCount;\r\n        this.speaks = speaks;\r\n    }\r\n    speak() {\r\n        return this.speaks;\r\n    }\r\n}"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "let dog = new Animal(\"dog\", 4, \"woof\");\r\nlet cat = new Animal(\"cat\", 4, \"meow\");"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "dog"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "Animal {",
+                                "  name: \u001b[32m'dog'\u001b[39m,",
+                                "  legCount: \u001b[33m4\u001b[39m,",
+                                "  speaks: \u001b[32m'woof'\u001b[39m",
+                                "}"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "cat"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "Animal {",
+                                "  name: \u001b[32m'cat'\u001b[39m,",
+                                "  legCount: \u001b[33m4\u001b[39m,",
+                                "  speaks: \u001b[32m'meow'\u001b[39m",
+                                "}"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "console.log(dog.speak());\r\nconsole.log(cat.speak());"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "woof",
+                                "meow",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "let animals = [dog, cat];\r\nanimals[0].name = \"doggo\";"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "\u001b[32m'doggo'\u001b[39m"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "dog"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "Animal {",
+                                "  name: \u001b[32m'doggo'\u001b[39m,",
+                                "  legCount: \u001b[33m4\u001b[39m,",
+                                "  speaks: \u001b[32m'woof'\u001b[39m",
+                                "}"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Above Dog object is also changed because array stores the reference to the complex objects. \r\n\r\nThis will not happen in case of primitive data types like numbers, strings, etc."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "**STATIC METHODS**: Static methods are methods relevant to all instances of a class — not just any one instance. These methods receive information from their arguments and not a class instance, which allows us to invoke a class' static methods without creating an instance of the class. In fact, we actually can't call a static method on an instantiated class object (attempting to do so throws a TypeError)."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "class Alien{\r\n\r\n    static speak(){\r\n        return \"beep boop\";\r\n    }\r\n\r\n    constructor(planet) {\r\n        this.planet = planet;\r\n    }\r\n}"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "clark = new Alien(\"krypton\");"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "Alien {",
+                                "  planet: \u001b[32m'krypton'\u001b[39m",
+                                "}"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "clark.speak()"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.error",
+                            "value": {
+                                "name": "TypeError",
+                                "message": "clark.speak is not a function",
+                                "stack": "    at <Cell 17> [1, 5]\n    at <Cell 17> [4, 46]\n    at Script.runInContext (node:vm:141:12)\n    at Script.runInNewContext (node:vm:146:17)\n    at Object.runInNewContext (node:vm:306:38)\n    at C (c:\\Users\\anmol\\.vscode\\extensions\\donjayamanne.typescript-notebook-2.0.6\\out\\extension\\server\\index.js:2:113345)\n    at t.execCode (c:\\Users\\anmol\\.vscode\\extensions\\donjayamanne.typescript-notebook-2.0.6\\out\\extension\\server\\index.js:2:114312)\n    at k.<anonymous> (c:\\Users\\anmol\\.vscode\\extensions\\donjayamanne.typescript-notebook-2.0.6\\out\\extension\\server\\index.js:2:142156)\n    at k.emit (node:events:513:28)\n    at k.emit (node:domain:489:12)"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "Alien.speak()"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "\u001b[32m'beep boop'\u001b[39m"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Above, functionality of static methods is shown."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "**STATIC PROPERTIES**: Static properties are properties that are accessible to every instance of a class, but are not themselves instance properties. Take a look at the example below:"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "**this**: The this keyword refers to the current instance of the class and is used to access properties of the class."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "class Machine {\r\n\r\n    static count = 0;\r\n    static activeMachines = [];\r\n\r\n    constructor(name, power) {\r\n        this.name = name;\r\n        this.power = power;\r\n        this.isOn = false;\r\n        Machine.count++;\r\n    }\r\n\r\n    turnOn() {\r\n        Machine.activeMachines.push(this);\r\n        this.isOn = true;\r\n        return `${this.name} is on`;\r\n    }\r\n\r\n    turnOff() { // Instance Method can access static properties\r\n        Machine.activeMachines = Machine.activeMachines.filter((machine) => {\r\n            return machine !== this;\r\n        });\r\n        this.isOn = false;\r\n        return `${this.name} is off`;\r\n    }\r\n\r\n    static countMachines() { // Static Method can only access static properties\r\n        return Machine.count;\r\n    }\r\n\r\n    static turnOffActiveMachines() {\r\n        Machine.activeMachines.forEach((machine) => {\r\n            machine.turnOff();\r\n        });\r\n    }\r\n\r\n}"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "car = new Machine(\"car\", 100);\r\nbike = new Machine(\"bike\", 10);\r\n\r\nconsole.log(car.count); // UNDEFINED - count is a static property\r\nconsole.log(Machine.count); // 2\r\nconsole.log(Machine.countMachines()); // 2"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "undefined",
+                                "2",
+                                "2",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "Machine.activeMachines // []"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "[]"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "car.turnOn(); // \"car is on\"\r\nMachine.activeMachines // [Machine]"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "[",
+                                "  Machine {",
+                                "    name: \u001b[32m'car'\u001b[39m,",
+                                "    power: \u001b[33m100\u001b[39m,",
+                                "    isOn: \u001b[33mtrue\u001b[39m",
+                                "  }",
+                                "]"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "car.turnOff(); // \"car is off\"\r\nbike.turnOn(); // \"bike is on\"\r\nMachine.activeMachines // [bike]"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "[",
+                                "  Machine {",
+                                "    name: \u001b[32m'bike'\u001b[39m,",
+                                "    power: \u001b[33m10\u001b[39m,",
+                                "    isOn: \u001b[33mtrue\u001b[39m",
+                                "  }",
+                                "]"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "car.turnOn(); // \"car is on\"\r\nMachine.activeMachines // [bike, car]"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "[",
+                                "  Machine {",
+                                "    name: \u001b[32m'bike'\u001b[39m,",
+                                "    power: \u001b[33m10\u001b[39m,",
+                                "    isOn: \u001b[33mtrue\u001b[39m",
+                                "  },",
+                                "  Machine {",
+                                "    name: \u001b[32m'car'\u001b[39m,",
+                                "    power: \u001b[33m100\u001b[39m,",
+                                "    isOn: \u001b[33mtrue\u001b[39m",
+                                "  }",
+                                "]"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "Machine.turnOffActiveMachines();"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "Machine.activeMachines"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "[]"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "car"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "Machine {",
+                                "  name: \u001b[32m'car'\u001b[39m,",
+                                "  power: \u001b[33m100\u001b[39m,",
+                                "  isOn: \u001b[33mfalse\u001b[39m",
+                                "}"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "bike"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "Machine {",
+                                "  name: \u001b[32m'bike'\u001b[39m,",
+                                "  power: \u001b[33m10\u001b[39m,",
+                                "  isOn: \u001b[33mfalse\u001b[39m",
+                                "}"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "See the original objects are also changed. Since we had pushed the reference to the objects in the activeMachines array. "
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "#### **DATETIME**"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "-- Taught Date Object and its functions."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "**EPOCH TIME**: Epoch time is the number of seconds/milliseconds that have elapsed since January 1, 1970 at midnight UTC time."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "let t1 = new Date().getTime(); // unit: milliseconds\r\n\r\nfor (let i = 0; i < 1000000000; i++) {\r\n    let x = 1;\r\n}\r\n\r\nlet t2 = new Date().getTime(); // unit: milliseconds"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "console.log(\"Time Taken: \", t2 - t1, \"ms\");"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "Time Taken:  370 ms",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "#### **JSON** - JavaScript Object Notation"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "**JSON**: JSON stands for JavaScript Object Notation. It is a way to store information in an organized, easy-to-access manner. In a nutshell, it gives us a human-readable collection of data that we can access in a really logical manner. JSON is built on two structures:\r\n\r\n- A collection of name/value pairs. In various languages, this is realized as an object, record, struct, dictionary, hash table, keyed list, or associative array.\r\n\r\n- An ordered list of values. In most languages, this is realized as an array, vector, list, or sequence."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "let sampleJson = {\r\n    \"name\": \"John Doe\",\r\n    \"age\": 30,\r\n    \"isMarried\": true,\r\n    \"hobbies\": [\r\n        \"reading\",\r\n        \"coding\",\r\n        \"gaming\"\r\n    ],\r\n    \"knownAddreses\": [{\r\n        \"street\": \"123 Main St\",\r\n        \"city\": \"New York\",\r\n        \"state\": \"NY\"\r\n    }, {\r\n        \"street\": \"456 Main St\",\r\n        \"city\": \"New York\",\r\n        \"state\": \"NY\"\r\n    }]\r\n}"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "sampleJson"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "{",
+                                "  name: \u001b[32m'John Doe'\u001b[39m,",
+                                "  age: \u001b[33m30\u001b[39m,",
+                                "  isMarried: \u001b[33mtrue\u001b[39m,",
+                                "  hobbies: [",
+                                "    \u001b[32m'reading'\u001b[39m,",
+                                "    \u001b[32m'coding'\u001b[39m,",
+                                "    \u001b[32m'gaming'\u001b[39m",
+                                "  ],",
+                                "  knownAddreses: [",
+                                "    {",
+                                "      street: \u001b[32m'123 Main St'\u001b[39m,",
+                                "      city: \u001b[32m'New York'\u001b[39m,",
+                                "      state: \u001b[32m'NY'\u001b[39m",
+                                "    },",
+                                "    {",
+                                "      street: \u001b[32m'456 Main St'\u001b[39m,",
+                                "      city: \u001b[32m'New York'\u001b[39m,",
+                                "      state: \u001b[32m'NY'\u001b[39m",
+                                "    }",
+                                "  ]",
+                                "}"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "JSON is widely used because it is easy for both humans and machines to read. It is also language-independent, making it great for data storage and communication between servers and web clients.\r\n\r\nIt is also very easy to parse and generate data using JSON. It is used in many web applications as a simple data interchange format. \r\n\r\nIt is very lightweight compared to other data-interchange formats like XML and JSON is language independent.\r\n\r\nXML is also a similar thing used for storing and exchanging data but JSON is preferred because of its lightweight nature and ease of use."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "##### **SERIALIZATION and DESERIALIZATION**"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "**SERIALIZATION**: Serialization is the process of converting an object into a special format which is suitable for transmitting over the network or storing in file or database."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "**DESERIALIZATION**: Deserialization is the opposite process of converting a stream of bytes into an object."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "We can use **JSON** class to serialize and deserialize objects."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "// Serializing\r\nlet sampleJsonString = JSON.stringify(sampleJson);\r\nsampleJsonString"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "\u001b[32m'{\"name\":\"John Doe\",\"age\":30,\"isMarried\":true,\"hobbies\":[\"reading\",\"coding\",\"gaming\"],\"knownAddreses\":[{\"street\":\"123 Main St\",\"city\":\"New York\",\"state\":\"NY\"},{\"street\":\"456 Main St\",\"city\":\"New York\",\"state\":\"NY\"}]}'\u001b[39m"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "// Deserializing\r\nlet sampleJsonObj = JSON.parse(sampleJsonString);\r\nsampleJsonObj"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "{",
+                                "  name: \u001b[32m'John Doe'\u001b[39m,",
+                                "  age: \u001b[33m30\u001b[39m,",
+                                "  isMarried: \u001b[33mtrue\u001b[39m,",
+                                "  hobbies: [",
+                                "    \u001b[32m'reading'\u001b[39m,",
+                                "    \u001b[32m'coding'\u001b[39m,",
+                                "    \u001b[32m'gaming'\u001b[39m",
+                                "  ],",
+                                "  knownAddreses: [",
+                                "    {",
+                                "      street: \u001b[32m'123 Main St'\u001b[39m,",
+                                "      city: \u001b[32m'New York'\u001b[39m,",
+                                "      state: \u001b[32m'NY'\u001b[39m",
+                                "    },",
+                                "    {",
+                                "      street: \u001b[32m'456 Main St'\u001b[39m,",
+                                "      city: \u001b[32m'New York'\u001b[39m,",
+                                "      state: \u001b[32m'NY'\u001b[39m",
+                                "    }",
+                                "  ]",
+                                "}"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
