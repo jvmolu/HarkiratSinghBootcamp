@@ -43,7 +43,7 @@
         {
             "language": "javascript",
             "source": [
-                "sumOfSomething(2, 3, function (x) {\r\n    return x * x;\r\n}); // 13"
+                "sumOfSomething(2, 3, function (x) {\r\n    return x * x;\r\n}); // 2^2 + 3^2 = 13"
             ],
             "outputs": [
                 {
@@ -79,7 +79,7 @@
         {
             "language": "javascript",
             "source": [
-                "sumOfSomething(2, 3, function (x) {\r\n    return x * x * x;\r\n}); // 35"
+                "sumOfSomething(2, 3, function (x) {\r\n    return x * x * x;\r\n}); // 2^3 + 3^3 = 35"
             ],
             "outputs": [
                 {

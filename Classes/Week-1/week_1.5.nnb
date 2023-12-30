@@ -1,0 +1,708 @@
+{
+    "cells": [
+        {
+            "language": "markdown",
+            "source": [
+                "## JAVASCRIPT TUTORIAL"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### **Sync vs Async**\r\n\r\n**Sync:** 1 task at a time\r\n\r\n**Async:** multiple tasks at a time"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### **HOW ASYNC WORKS** [Because JS is single threaded...]\r\n\r\nGood Reference: https://medium.com/codex/javascript-event-loop-callback-queue-f15a4dd7f32b\r\n\r\n**1.** **CALL STACK**\r\n\r\nCall stack is a data structure which records basically where in the program we are. If we call a function, we put on top of the call stack. When we return from a function, we remove the function from the top of the call stack.\r\n\r\n**2.** **WEB API** - Involved when there are below functions involved\r\n\r\nWeb API is where the asynchronous part of javascript happens. It is not part of the javascript engine, it is provided to the engine by the browser. It is a set of functionalities that we can use to do things like make http requests or set timers.\r\nIn local machine, we have node.js which provides us with the same functionalities.\r\n\r\nIt provides us the following functionalities:\r\n\r\n-   **setTimeout()**\r\n-   **setInterval()**\r\n-   **fetch()**\r\n-   etc...\r\n\r\nWhen we call one of these functions, it is taken out of the javascript engine and executed in the web API. When the task is finished, it is put in the callback queue.\r\n\r\n**3.** **CALLBACK QUEUE**\r\n\r\nWhenever a function needs to be executed asynchronously, it is pushed to the callback queue and is picked up by the event loop when it finds an empty call stack.\r\n\r\nWhen the web API finishes the task, it puts the callback function in the callback queue. The callback queue is a data structure that holds all the callback functions that are ready to be executed. Tasks are picked up from the callback queue by the event loop.\r\n\r\n**4.** **EVENT LOOP**\r\n\r\nThe event loop is a loop that keeps running as long as the program is running. It checks the call stack and if call stack is empty, it looks into the callback queue and if there is a callback function waiting in the queue, it puts it on the call stack."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "**Example-1:**"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "setTimeout(() => {\r\n    console.log('timeout');\r\n    }\r\n, 1000); // THIS IS PUTTING THE FUNCTION IN THE WEB API with the timeout\r\n\r\n\r\n// WEB API Constantly checks if the callback function is ready to be executed\r\n// If it is ready, it is placed in the Callback Queue\r\nlet a = 0;\r\nfor(let i = 0; i < 20000000; i++) {\r\n    // do nothing\r\n    a++;\r\n}\r\nconsole.log(a);"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "20000000",
+                                "timeout",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "In the above example the Loop takes more than 1 second to complete but the callback function is executed after a long time. This is because the callback function is put in the callback queue after 1 second and the event loop puts it on the call stack only when the call stack is empty. But the call stack is not empty because the loop is running. So the callback function is executed only after the loop is completed."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "In Simple words, the loop has occupied the call stack and the callback function is waiting in the callback queue for the call stack to be empty. Event loop puts the callback function on the call stack only when the call stack is empty."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "**Example-2:**"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "setTimeout(() => {\r\n    console.log('timeout-1');\r\n    }\r\n, 1000); // THIS IS PUTTING THE FUNCTION IN THE WEB API with the timeout\r\n\r\nsetTimeout(() => {\r\n    console.log('timeout-2');\r\n    }\r\n, 50); // THIS IS PUTTING THE FUNCTION IN THE WEB API with the timeout\r\n\r\n// WEB API Constantly checks if the callback function is ready to be executed\r\n// If it is ready, it is placed in the Callback Queue\r\nlet a = 0;\r\nfor(let i = 0; i < 20000000; i++) {\r\n    // do nothing\r\n    a++;\r\n}\r\nconsole.log(a);"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "20000000",
+                                "timeout-1",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "In the above example, we see timeout-2 is executed before timeout-1. This is because web-api puts timeout-2 in the callback queue before timeout-1 since it completes its time in the web-api before timeout-1. So the event loop puts timeout-2 on the call stack before timeout-1."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Callback queue follows the **first in first out principle.**"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Hence, always only a single thread is used in javascript. This sinlge thread executes the code and checks the callback queue for any callback functions to be executed when it is free."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Regarding Web API, it is not part of the javascript engine. It is provided to the engine by the browser. Hence, it is not wrong to say that javascript is single threaded."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "**Example-3:**"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "import { readFile } from 'fs';\r\n\r\nreadFile('../../Resources/file1.txt', (err, data) => { // ASYNCHRONOUS - GETS PUSHED TO THE CALLBACK QUEUE by JAVASCRIPT RUNTIME ENGINE\r\n    if(err) {\r\n        console.log(err);\r\n    } else {\r\n        console.log(data.toString());\r\n    }\r\n});\r\n\r\nlet a = 0;\r\nfor(let i = 0; i < 20000000; i++) {\r\n    // do nothing\r\n    a++;\r\n}\r\nconsole.log(a); // CALLSTACK IS BUSY WITH THIS FOR LOOP, SO THE CALLBACK FUNCTION IS NOT EXECUTED YET"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "20000000",
+                                "This is my data.",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### **PROMISES**:\r\n\r\n**HOW DOES PROMISES WORK?**\r\n\r\n**1.** **PROMISE CREATION**\r\n\r\nWhen we create a promise, the executor function is executed immediately. The executor function takes in two arguments, resolve and reject or just a single argument which is resolve. These are functions that are provided by the javascript engine. We can call these functions to resolve or reject the promise.\r\n\r\n**2.** **PROMISE STATE**\r\n\r\nA promise can be in one of the three states:\r\n\r\n- **Pending:** When the promise is created and the executor function is running.\r\n- **Fulfilled:** When the promise is resolved.\r\n- **Rejected:** When the promise is rejected.\r\n\r\n**3.** **PROMISE SETTLEMENT**\r\n\r\nWhen the promise is resolved or rejected, it is said to be settled. Once the promise is settled, it cannot be settled again.\r\n\r\n**4.** **PROMISE CONSUMPTION**\r\n\r\nWe can consume the promise using the then method. The then method takes an argument which is a callback function. This callback function is called when the promise is resolved. The callback function takes an argument which is the value that is passed to the resolve function. We can also use the catch method to catch the error if the promise is rejected.\r\n\r\n#### **Creating your Own Asynchronous Function:**"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "**Way-1:** Define a function which is a wrapper around the asynchronous function. This function takes in the callback function as an argument and calls the asynchronous function inside it. The asynchronous function takes in the callback function and calls it when it is done."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "import { readFile } from 'fs';\r\n\r\nfunction myReadFiles(callback) {\r\n    // THIS IS AN ASYNCHRONOUS FUNCTION\r\n    readFile('../../Resources/file1.txt', 'utf-8', (err, data1) => {\r\n        if(err) {\r\n            callback(err);\r\n            return;\r\n        }\r\n        callback(null, data1);\r\n    });\r\n}\r\n\r\nfunction onDone(err, data) {\r\n    if(err) {\r\n        console.log(\"ERROR HERE.....\");\r\n        console.log(err);\r\n        return;\r\n    }\r\n    console.log(data);\r\n}\r\n\r\nmyReadFiles(onDone);\r\nconsole.log('end of script');"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "end of script",
+                                "This is my data.",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Above function myReadFiles() is an Asynchronous Function as it is simply a Wrapper Function around the readFile() function which is an Asynchronous Function. We are also passing a callback function to the myReadFiles() function which is executed when the readFile() function completes its task."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "**Way-2:** We can also use **Promises** to create our own asynchronous functions. We can create a promise and resolve it when the asynchronous function completes its task. We can then use the asynchronous function by calling it and then using the then() method to execute the callback function when the promise is resolved."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "function myReadFilesUsingPromise(fp) {\r\n    return new Promise((resolve, reject) => {\r\n        readFile(fp, 'utf-8', (err, data1) => {\r\n            if(err) {\r\n                reject(err); // THIS IS THE SAME AS THROWING AN ERROR WHEN FUNCTION IS DONE\r\n                return;\r\n            }\r\n            resolve(data1); // THIS IS THE SAME AS RETURNING data1 WHEN FUNCTION IS DONE\r\n        });\r\n    });\r\n}\r\n\r\nfunction success(data) {\r\n    console.log(data);\r\n}\r\n\r\nfunction failure(err) {\r\n    console.log(\"ERROR HERE.....\");\r\n    console.log(err);\r\n}"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "myReadFilesUsingPromise('../../Resources/file1.txt')\r\n    .then(success)\r\n    .catch(failure);"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "This is my data.",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "myReadFilesUsingPromise('../../Resurces/file1.txt')\r\n    .then(success)\r\n    .catch(failure);"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "ERROR HERE.....",
+                                "[Error: ENOENT: no such file or directory, open 'c:\\Users\\anmol\\Desktop\\Coding\\HarkiratSinghCourse\\Resurces\\file1.txt'] {",
+                                "  errno: -4058,",
+                                "  code: 'ENOENT',",
+                                "  syscall: 'open',",
+                                "  path: 'c:\\\\Users\\\\anmol\\\\Desktop\\\\Coding\\\\HarkiratSinghCourse\\\\Resurces\\\\file1.txt'",
+                                "}",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "**Visualizing Promises:**"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "function isEvenWhichTakesTime(num) {\r\n    return new Promise((resolve) => { // This only takes in one parameter - resolve (If two parameters, then first is resolve, second is reject)\r\n        setTimeout(() => {\r\n            if(num % 2 === 0) {\r\n                resolve(true);\r\n            } else {\r\n                resolve(false);\r\n            }\r\n        }, 1000);\r\n    });\r\n}"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "let p1 = isEvenWhichTakesTime(10); // p1 is a promise which is unresolved [<pending>]\r\nconsole.log(p1);"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "Promise {",
+                                "  <pending>,",
+                                "  [Symbol(async_id_symbol)]: 264,",
+                                "  [Symbol(trigger_async_id_symbol)]: 14",
+                                "}",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "p1.then((result) => { // Waits for p1 to resolve\r\n    console.log(result);\r\n});"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "true",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "console.log(p1); // Still a promise but a resolved promise"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "Promise {",
+                                "  true,",
+                                "  [Symbol(async_id_symbol)]: 264,",
+                                "  [Symbol(trigger_async_id_symbol)]: 14",
+                                "}",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "What if we write only Synchronous code in Promises? Will it still be asynchronous?"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "function isOddWhichTakesTime(num) {\r\n    return new Promise((resolve) => { // This only takes in one parameter - resolve (If two parameters, then first is resolve, second is reject)\r\n        for(let i = 0; i < 20000000000; i++) {\r\n            // do nothing\r\n        }\r\n        if(num % 2 === 0) {\r\n            resolve(false);\r\n        } else {\r\n            resolve(true);\r\n        }\r\n    });\r\n}"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "let p1 = isOddWhichTakesTime(10); // p1 is a promise which is unresolved [<pending>]"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "console.log(p1);"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "Promise {",
+                                "  false,",
+                                "  [Symbol(async_id_symbol)]: 363,",
+                                "  [Symbol(trigger_async_id_symbol)]: 14",
+                                "}",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Above Code returns the promise but it takes lots of time to return the promise because it takes lots of time to execute the Synchronous code inside Promise Creation. Hence, it beats the purpose of using Promises. Because it is still technically **Synchronous**.\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "**NOTE**: Does .then() blocks the code? - No, it itself returns a Promise. [That it will execute the callback function when the promise is resolved]"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "let p2 = isEvenWhichTakesTime(10); \r\np2.then((result) => { // Waits for p1 to resolve\r\n    console.log(result);\r\n}\r\n);\r\nconsole.log(\"Hello\");"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "Hello",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "It does not block the code. It is just a callback function that is executed when the promise is resolved. It is not executed immediately. It is executed only when the promise is resolved. Hence, it does not block the code."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "#### **Promise Chaining:**\r\n\r\nWe can chain multiple then() methods to a promise. The then() method returns a promise. Hence, we can chain multiple then() methods to a promise."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "isEvenWhichTakesTime(11).then((result) => {\r\n    console.log(result);\r\n    return isOddWhichTakesTime(10);\r\n})\r\n.then((result) => {\r\n    console.log(result);\r\n    return isEvenWhichTakesTime(11);\r\n})\r\n.then((result) => {\r\n    console.log(result);\r\n});"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                "false",
+                                "false",
+                                "false",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### **ASYNC/AWAIT**"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Async/Await is a way to block the code execution until the asynchronous code is executed completely. It is a way to write asynchronous code in a synchronous way.\r\n\r\nIt can be used to create asynchronous functions which return promises but the purpose of Async/Await is to generally CALL asynchronous functions rather than creating them.\r\n\r\n**ASYNC**:\r\n\r\nAsync keyword is used to make a function asynchronous. It is used before the function keyword. It returns a promise. The promise is resolved with the value returned by the function. If the function throws an error, the promise is rejected with the error.\r\n\r\n**AWAIT**:\r\n\r\nAwait keyword is used to wait for the asynchronous code to execute. It can only be used inside an async function. It can be used before a function call to wait for the function to complete its task. It blocks the code execution until the asynchronous function completes its task."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "async function myFunction() {\r\n    let result = await isEvenWhichTakesTime(10);\r\n    console.log(result);\r\n    console.log(\"Hello\");\r\n}"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "myFunction();"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "true",
+                                "Hello",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Above you can see that Hello is printed after the result of the function"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "let p = myFunction();"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                "true",
+                                "Hello",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "console.log(p);"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "Promise {",
+                                "  undefined,",
+                                "  [Symbol(async_id_symbol)]: 269,",
+                                "  [Symbol(trigger_async_id_symbol)]: 14",
+                                "}",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "See an asynchronous function returns a promise."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "**NOTE**: What if an async function has a Return Statement?\r\n\r\nIf an async function has a return statement, the promise returned by the async function is resolved with the value returned by the return statement."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "async function myFunction2(x) {\r\n    let result = await isEvenWhichTakesTime(x);\r\n    return result;\r\n}"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "let aPromise = myFunction2(10);\r\nconsole.log(aPromise);"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "Promise {",
+                                "  <pending>,",
+                                "  [Symbol(async_id_symbol)]: 506,",
+                                "  [Symbol(trigger_async_id_symbol)]: 14",
+                                "}",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "console.log(aPromise);"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "Promise {",
+                                "  true,",
+                                "  [Symbol(async_id_symbol)]: 506,",
+                                "  [Symbol(trigger_async_id_symbol)]: 14",
+                                "}",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Above you see that when promise is resolved, we get the output in the promise data."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "// GENERALLY CODE GOES LIKE THIS - ASYNC/AWAIT is used at Caller Side. Promises are used at the Callee Side.\r\nasync function main(){\r\n    try {\r\n        let result = await myFunction2(10);\r\n        console.log(result);\r\n    } catch(err) {\r\n        console.log(err);\r\n    }\r\n}\r\n\r\nmain();"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "true",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
